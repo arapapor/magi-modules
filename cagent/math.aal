@@ -31,7 +31,7 @@ eventstreams:
         trigger: subDone
         args:
           a: 50
-          b: 25
+          b: 26
 
       - type: trigger
         triggers: [ {event: subDone, retVal: 25, target: 'exit'} ]
