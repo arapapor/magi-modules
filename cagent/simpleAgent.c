@@ -80,12 +80,52 @@ int* subtractInteger(int a, int b) {
 	return result2;
 }
 
+int* multiplyInteger(int a, int b) {
+	entrylog(logger, __func__, __FILE__, __LINE__);
+	int* result3 = (int*) malloc(sizeof(int));
+	*result3 = a * b;
+	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
+	node1->key = "subResult";
+	node1->value = (void*) *result3;
+	node1->type = INT_TYPE;
+	node1->next = NULL;
+	mongoDBExecute(OPER_INSERT, node1);
+	free(node1);
+	exitlog(logger, __func__, __FILE__, __LINE__);
+	return result3;
+}
+
+int* divideInteger(int a, int b) {
+	entrylog(logger, __func__, __FILE__, __LINE__);
+	int* result4 = (int*) malloc(sizeof(int));
+	if b != 0
+	{
+		*result4 = a / b;
+	}
+	else
+	{
+		
+		return 0; //even though thats not exactly true
+	}
+	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
+	node1->key = "subResult";
+	node1->value = (void*) *result4;
+	node1->type = INT_TYPE;
+	node1->next = NULL;
+	mongoDBExecute(OPER_INSERT, node1);
+	free(node1);
+	exitlog(logger, __func__, __FILE__, __LINE__);
+	return result4;
+}
+
+
 int main(int argc, char **argv) {
 	registerFunction("testChar", "char*", &testChar, 2, "char*", "char*");
 	registerFunction("testInt", "int*", &testInt, 2, "int", "int");
 	registerFunction("testVoid", "void", &testVoid, 0);
 	registerFunction("addInteger", "int*", &addInteger, 2, "int", "int");
 	registerFunction("subtractInteger", "int*", &subtractInteger, 2, "int", "int");
+	registerFunction("multiplyInteger", "int", &multiplyInteger)
 	//list = ArgParser(argc, argv);
 	agentStart(argc, argv);
 	log_debug(logger, "Going out of the main\n");
