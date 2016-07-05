@@ -36,7 +36,7 @@ eventstreams:
         triggers: [ {event: subDone, retVal: 25, target: 'exit'} ]
 
 
-  integerMultiplyStream
+  integerMultiplyStream:
       - type: event
         agent: c_agent
         method: multiplyInteger
@@ -48,7 +48,7 @@ eventstreams:
         triggers: [ {event: multDone, retVal: 25, target: 'exit'} ]
           
  
-  integerDivideStream
+  integerDivideStream:
       - type: event
         agent: c_agent
         method: divideInteger
