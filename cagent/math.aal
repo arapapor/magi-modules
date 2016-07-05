@@ -62,7 +62,7 @@ eventstreams:
         
   cleanupStream:
       - type: trigger
-        triggers: [ esets: [ { event:addDone} { event:subDone } { event:multDone} {event:divDone} ], target: exit} ]
+        triggers: [ esets: [ { event:addDone} { event:subDone } { event:multDone } { event:divDone } ], target: exit} ]
         
       - type: trigger
         triggers: [ { timeout: 20000 } ]
