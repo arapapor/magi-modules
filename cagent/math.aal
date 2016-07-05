@@ -46,7 +46,8 @@ eventstreams:
 
       - type: trigger
         triggers: [ {event: multDone, retVal: 1250} ]
-        
+      
+
   integerDivideStream:
       - type: event
         agent: c_agent
@@ -62,5 +63,8 @@ eventstreams:
   cleanupStream:
       - type: trigger
         triggers: [ {event: addDone, event: subDone, event: multDone, event: divDone, target: 'exit'} ]
+        
+      - type: trigger
+        triggers: [ { timeout: 20000 } ]
       
 
