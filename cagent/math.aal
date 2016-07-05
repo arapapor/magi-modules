@@ -7,7 +7,7 @@ agents:
     path: /proj/montage/magi-modules/cagent/ 
     execargs: { loglevel: debug }
 
-streamstarts: [ integerAddStream ] /*, integerSubtractStream, integerMultiplyStream, integerDivideStream ] */
+streamstarts: [ integerAddStream ] 
 
 eventstreams:
 
