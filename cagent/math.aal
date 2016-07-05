@@ -42,11 +42,11 @@ eventstreams:
         method: multiplyInteger
         trigger: multDone
         args:
-          a: 5
-          b: 10
+          a: 50
+          b: 25
           
       - type: trigger
-        triggers: [ {event: multDone, retVal: 50, target: 'integerDivideStream'} ]
+        triggers: [ {event: multDone, retVal: 1250, target: 'integerDivideStream'} ]
           
  
   integerDivideStream:
@@ -55,8 +55,8 @@ eventstreams:
         method: divideInteger
         trigger: divDone
         args:
-          a: 18
-          b: 2
+          a: 50
+          b: 25
           
       - type: trigger
         triggers: [ {event: divDone, retVal: 9, target: 'exit'} ]    
