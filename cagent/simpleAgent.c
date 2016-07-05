@@ -85,7 +85,7 @@ int* multiplyInteger(int a, int b) {
 	int* result3 = (int*) malloc(sizeof(int));
 	*result3 = a * b;
 	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
-	node1->key = "subResult";
+	node1->key = "multResult";
 	node1->value = (void*) *result3;
 	node1->type = INT_TYPE;
 	node1->next = NULL;
@@ -108,7 +108,7 @@ int* divideInteger(int a, int b) {
 		*result4 = 0; //even though thats not exactly true
 	}
 	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
-	node1->key = "subResult";
+	node1->key = "divResult";
 	node1->value = (void*) *result4;
 	node1->type = INT_TYPE;
 	node1->next = NULL;
