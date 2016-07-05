@@ -20,8 +20,6 @@ eventstreams:
           a: 25
           b: 50
 
-      - type: trigger
-        triggers: [ {event: addDone, retVal: 75} ]
 
   integerSubtractStream:
       - type: event
@@ -32,8 +30,6 @@ eventstreams:
           a: 50
           b: 25
 
-      - type: trigger
-        triggers: [ {event: subDone, retVal: 25} ]
   
   integerMultiplyStream:
       - type: event
@@ -44,10 +40,8 @@ eventstreams:
           a: 50
           b: 25
 
-      - type: trigger
-        triggers: [ {event: multDone, retVal: 1250} ]
       
-
+  
   integerDivideStream:
       - type: event
         agent: c_agent
@@ -57,8 +51,7 @@ eventstreams:
           a: 50
           b: 25
 
-      - type: trigger
-        triggers: [ {event: divDone, retVal: 2} ]
+     
         
   cleanupStream:
       - type: trigger
