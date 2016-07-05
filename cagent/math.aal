@@ -4,7 +4,7 @@ groups:
 agents:
   c_agent:
     group: agent_group
-    path: /users/rning/magi-modules/cagent/ 
+    path: /proj/montage/magi-modules/cagent/ 
     execargs: { loglevel: debug }
 
 streamstarts: [ integerAddStream, integerSubtractStream, integerMultiplyStream, integerDivideStream ]
@@ -61,4 +61,5 @@ eventstreams:
         
       - type: trigger
         triggers: [ {event: addDone, event: subDone, event: multDone, event: divDone, target: 'exit'} ]
+      
 
