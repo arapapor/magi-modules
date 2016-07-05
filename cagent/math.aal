@@ -33,7 +33,7 @@ eventstreams:
           b: 25
 
       - type: trigger
-        triggers: [ {event: subDone, retVal: 25, target: 'exit'} ]
+        triggers: [ {event: subDone, retVal: 25, target: 'integerMultiplyStream'} ]
 
 
   integerMultiplyStream:
@@ -46,7 +46,7 @@ eventstreams:
           b: 10
           
       - type: trigger
-        triggers: [ {event: multDone, retVal: 50, target: 'exit'} ]
+        triggers: [ {event: multDone, retVal: 50, target: 'integerDivideStream'} ]
           
  
   integerDivideStream:
