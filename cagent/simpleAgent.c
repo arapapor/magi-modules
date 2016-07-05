@@ -98,15 +98,7 @@ int* multiplyInteger(int a, int b) {
 int* divideInteger(int a, int b) {
 	entrylog(logger, __func__, __FILE__, __LINE__);
 	int* result4 = (int*) malloc(sizeof(int));
-	if b != 0
-	{
-		*result4 = a / b;
-	}
-	else
-	{
-		
-		*result4 = 0; //even though thats not exactly true
-	}
+	*result4 = a / b;
 	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
 	node1->key = "divResult";
 	node1->value = (void*) *result4;
