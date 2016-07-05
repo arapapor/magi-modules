@@ -105,7 +105,7 @@ int* divideInteger(int a, int b) {
 	else
 	{
 		
-		return 0; //even though thats not exactly true
+		*result4 = 0; //even though thats not exactly true
 	}
 	keyValueNode_t node1 = (keyValueNode_t) malloc(sizeof(struct keyValueNode));
 	node1->key = "subResult";
