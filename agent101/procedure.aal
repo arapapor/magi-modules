@@ -1,6 +1,6 @@
 
 groups:
-  agent_group: [testa]
+  agent_group: [control]
     
 agents:
   testagent:
