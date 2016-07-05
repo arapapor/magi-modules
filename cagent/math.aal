@@ -44,6 +44,7 @@ eventstreams:
         args:
           a: 5
           b: 10
+          
       - type: trigger
         triggers: [ {event: multDone, retVal: 50, target: 'exit'} ]
           
@@ -56,6 +57,7 @@ eventstreams:
         args:
           a: 18
           b: 2
+          
       - type: trigger
         triggers: [ {event: divDone, retVal: 9, target: 'exit'} ]    
      
