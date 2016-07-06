@@ -5,7 +5,7 @@ from magi.util.processAgent import initializeProcessAgent
 class FileCreator(DispatchAgent):
     def __init__(self):
         DispatchAgent.__init__(self)
-        self.filename = 'users/arapapor/magi-modules/autoCalculator/calc.aal'
+        self.filename = '/tmp/calc'
 
     # A single method which creates the file named by self.filename.
     # (The @agentmethod() decorator is not required, but is encouraged.
