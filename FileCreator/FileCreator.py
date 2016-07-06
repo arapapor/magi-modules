@@ -15,26 +15,28 @@ class FileCreator(DispatchAgent):
         # '''Create a file on the host.'''
         
         # open and immediately close the file to create it.
-        open(self.filename, 'w').close()
-        
-        cwd = os.path.dirname(sys.argv[0])
+        #open(self.filename, 'w').close()
+        #cwd = os.path.dirname(sys.argv[0])
         #copy2(cwd + "/math.aal", cwd + "/calc.aal")
-        of = open("/users/arapapor/magi-modules/FileCreator/calc.aal", a+)
         
-        sa = "          a: "
-        sb = "          b: "
+        with open("calc.aal", "a+") as wf:
+            with open("math.aal", "r") as rf:
+                sa = "          a: "
+                sb = "          b: "
         
-        for line in math.aal:
-            ln = line.readln()
-            
-            if ln.find("a:"):
-                of.write(sa + str(random.random() * 100) + "/n") 
-            elif ln.find("b:"):
-                of.write(sb + str(random.random() * 100) + "/n") 
-            else:
-                of.writ(ln)
+                for line in rf:
+                    ln = line.readln()
+                    
+                    if ln.find("a:"):
+                        wf.write(sa + str(random.random() * 100) + "/n") 
+                    elif ln.find("b:"):
+                        wf.write(sb + str(random.random() * 100) + "/n") 
+                    else:
+                        wf.writ(ln)
+        
+        
                 
-        of.close()
+        #of.close()
     
         
 
