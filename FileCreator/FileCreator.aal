@@ -1,7 +1,7 @@
 streamstarts: [main]
 
 groups:
-    myFileCreatorGroup: [NODES]
+    myFileCreatorGroup: [control]
 
 agents:
     myFileCreators:
