@@ -82,8 +82,8 @@ class FileCreator(DispatchAgent):
 for x in lines:
     self.write(x + "\n")
         
-        # open and immediately close the file to create it.
-        open(self.filename, 'w').close()
+    # open and immediately close the file to create it.
+    open(self.filename, 'w').close()
 
 # the getAgent() method must be defined somewhere for all agents.
 # The Magi daemon invokes this mehod to get a reference to an
