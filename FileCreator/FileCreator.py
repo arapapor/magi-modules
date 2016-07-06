@@ -5,7 +5,7 @@ from magi.util.processAgent import initializeProcessAgent
 class FileCreator(DispatchAgent):
     def __init__(self):
         DispatchAgent.__init__(self)
-        self.filename = '/tmp/newFile'
+        self.filename = '/tmp/newfile'
 
     # A single method which creates the file named by self.filename.
     # (The @agentmethod() decorator is not required, but is encouraged.
