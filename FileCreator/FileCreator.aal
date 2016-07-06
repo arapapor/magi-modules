@@ -17,3 +17,9 @@ eventstreams:
           agent: myFileCreators
           method: createFile
           args: {}
+          
+        - type: event
+          agent: myFileCreators
+          method: setConfiguration
+          args:
+             filename: /users/arapapor/magi-modules/FileCreator/calc.aal
