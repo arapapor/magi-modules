@@ -28,9 +28,9 @@ class FileCreator(DispatchAgent):
             ln = line.readln()
             
             if ln.find("a:"):
-                of.write(sa + str(rand()) + "/n") 
+                of.write(sa + str(random.random() * 100) + "/n") 
             elif ln.find("b:"):
-                of.write(sb + str(rand()) + "/n") 
+                of.write(sb + str(random.random() * 100) + "/n") 
             else:
                 of.writ(ln)
                 
