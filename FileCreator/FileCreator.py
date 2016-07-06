@@ -14,7 +14,6 @@ class FileCreator(DispatchAgent):
     def createFile(self, msg):
         # '''Create a file on the host.'''
         lines = [
-        
 "groups:",
 "agent_group: [control]",
 "",
