@@ -21,8 +21,8 @@ class FileCreator(DispatchAgent):
 # The Magi daemon invokes this mehod to get a reference to an
 # agent. It uses this reference to run and interact with an agent
 # instance.
-def getAgent():
-    agent = FileCreator()
+def getAgent(self, msg):
+    agent = FileCreator(self)
     return agent
 
 # In case the agent is run as a separate process, we need to
