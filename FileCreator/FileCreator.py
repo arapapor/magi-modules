@@ -15,7 +15,7 @@ class FileCreator(DispatchAgent):
         # '''Create a file on the host.'''
         cwd = os.path.dirname(sys.argv[0])
         #copy2(cwd + "/math.aal", cwd + "/calc.aal")
-        of = open(self.filename, 'w')
+        of = open(self.filename, 'a+')
         
         sa = "          a: "
         sb = "          b: "
