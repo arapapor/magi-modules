@@ -67,9 +67,9 @@ class FileCreator(DispatchAgent):
 "        args:",
 "          a: " + str(rand()),
 "          b: " + str(rand()),
-""
-""    
-""        
+"",
+"",    
+"",        
 "  cleanupStream:",
 "      - type: trigger",
 "        triggers: [ esets: [ { event: addDone } { event: subDone } { event: multDone } { event: divDone } ], target: exit} ]",
