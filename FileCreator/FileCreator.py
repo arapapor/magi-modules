@@ -19,7 +19,7 @@ class FileCreator(DispatchAgent):
 "agent_group: [control]",
 "",
 "agents:",
-"  c_agent:"",
+"  c_agent:",
 "    group: agent_group",
 "    path: /proj/montage/magi-modules/cagent/", 
 "    execargs: { loglevel: debug }",
