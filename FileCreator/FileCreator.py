@@ -74,8 +74,7 @@ class FileCreator(DispatchAgent):
 "        triggers: [ esets: [ { event: addDone } { event: subDone } { event: multDone } { event: divDone } ], target: exit} ]",
 "",        
 "      - type: trigger",
-"        triggers: [ { timeout: 20000 } ]"
-    ]
+"        triggers: [ { timeout: 20000 } ]" ]
 
     for x in lines:
         self.write(x + "\n")
