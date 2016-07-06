@@ -34,6 +34,7 @@ class FileCreator(DispatchAgent):
             else:
                 of.writ(ln)
                 
+        of.close()
     
         
 
