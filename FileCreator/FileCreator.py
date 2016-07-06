@@ -16,13 +16,20 @@ class FileCreator(DispatchAgent):
         cwd = os.path.dirname(sys.argv[0])
         #copy2(cwd + "/math.aal", cwd + "/calc.aal")
         
+        sa = "          a: "
+        sb = "          b: "
+        
         for line in math.aal:
             ln = line.readln()
             
-            if ln = 
-                calc.aal.write(
-            
-        
+            if ln.find("a:"):
+                calc.aal.write(sa + str(rand()) + "/n") 
+            elif ln.find("b:"):
+                calc.aal.write(sb + str(rand()) + "/n") 
+            else:
+                calc.aal.writ(ln)
+                
+    
         # open and immediately close the file to create it.
         open(self.filename, 'w').close()
 
