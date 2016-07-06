@@ -75,11 +75,10 @@ class FileCreator(DispatchAgent):
 "",        
 "      - type: trigger",
 "        triggers: [ { timeout: 20000 } ]"
-]
+    ]
 
-
-for x in lines:
-    self.write(x + "\n")
+    for x in lines:
+        self.write(x + "\n")
         
     # open and immediately close the file to create it.
     open(self.filename, 'w').close()
