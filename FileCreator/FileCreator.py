@@ -15,6 +15,7 @@ class FileCreator(DispatchAgent):
         # '''Create a file on the host.'''
         cwd = os.path.dirname(sys.argv[0])
         #copy2(cwd + "/math.aal", cwd + "/calc.aal")
+        open(self.filename, 'w')
         
         sa = "          a: "
         sb = "          b: "
@@ -31,7 +32,7 @@ class FileCreator(DispatchAgent):
                 
     
         # open and immediately close the file to create it.
-        open(self.filename, 'w').close()
+        self.close()
 
 # the getAgent() method must be defined somewhere for all agents.
 # The Magi daemon invokes this mehod to get a reference to an
