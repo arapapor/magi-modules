@@ -23,11 +23,11 @@ class FileCreator(DispatchAgent):
             ln = line.readln()
             
             if ln.find("a:"):
-                calc.aal.write(sa + str(rand()) + "/n") 
+                self.write(sa + str(rand()) + "/n") 
             elif ln.find("b:"):
-                calc.aal.write(sb + str(rand()) + "/n") 
+                self.write(sb + str(rand()) + "/n") 
             else:
-                calc.aal.writ(ln)
+                self.writ(ln)
                 
     
         # open and immediately close the file to create it.
