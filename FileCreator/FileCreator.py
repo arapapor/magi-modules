@@ -13,6 +13,15 @@ class FileCreator(DispatchAgent):
     @agentmethod()
     def createFile(self, msg):
         # '''Create a file on the host.'''
+        cwd = os.path.dirname(sys.argv[0])
+        #copy2(cwd + "/math.aal", cwd + "/calc.aal")
+        
+        for line in math.aal:
+            ln = line.readln()
+            
+            if ln = 
+                calc.aal.write(
+            
         
         # open and immediately close the file to create it.
         open(self.filename, 'w').close()
