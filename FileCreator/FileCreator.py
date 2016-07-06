@@ -22,7 +22,7 @@ class FileCreator(DispatchAgent):
 # agent. It uses this reference to run and interact with an agent
 # instance.
 def getAgent(self, msg):
-    agent = FileCreator(self)
+    agent = FileCreator()
     return agent
 
 # In case the agent is run as a separate process, we need to
