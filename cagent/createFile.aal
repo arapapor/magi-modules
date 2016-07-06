@@ -8,7 +8,7 @@ agents:
         group: myFileCreatorGroup
         # (note: the "PATH" argument is the agent directory. The
         # direcory must contain an IDL and agent implementation.)
-        path: users/magi-modules/cagent/createFile.aal
+        path: users/magi-modules/cagent/fileAgent.idl
         execargs: []
 
 eventstreams:
