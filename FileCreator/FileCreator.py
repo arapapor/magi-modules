@@ -25,11 +25,11 @@ class FileCreator(DispatchAgent):
                 sb = "          b: "
         
                 for line in rf:
-                    ln = line.readln()
+                    #ln = line.readln()
                     
-                    if ln.find("a:"):
+                    if line == sa:
                         wf.write(sa + str(random.random() * 100) + "/n") 
-                    elif ln.find("b:"):
+                    elif line == sb:
                         wf.write(sb + str(random.random() * 100) + "/n") 
                     else:
                         wf.write(ln)
