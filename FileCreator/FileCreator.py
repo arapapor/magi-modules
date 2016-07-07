@@ -32,7 +32,7 @@ class FileCreator(DispatchAgent):
                     elif ln.find("b:"):
                         wf.write(sb + str(random.random() * 100) + "/n") 
                     else:
-                        wf.writ(ln)
+                        wf.write(ln)
         
         
                 
