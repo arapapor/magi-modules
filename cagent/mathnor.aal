@@ -1,0 +1,59 @@
+groups:
+  agent_group: [control]
+    
+agents:
+  c_agent:
+    group: agent_group
+    path: /users/rning/magi-modules/cagent/ 
+    execargs: { loglevel: debug }
+
+streamstarts: [ integerAddStream ]
+
+eventstreams:
+  integerAddStream:         
+      - type: event
+        agent: c_agent
+        method: addInteger
+        trigger: addDone
+        args:
+          a: 25
+          b: 50
+
+      - type: trigger
+        triggers: [ {event: addDone, target: 'integerSubtractStream', retVal: 75} ]
+
+  integerSubtractStream:
+      - type: event
+        agent: c_agent
+        method: subtractInteger
+        trigger: subDone
+        args:
+          a: 50
+          b: 25
+
+      - type: trigger
+        triggers: [ {event: subDone, target: 'integerMultiplyStream', retVal: 0} ]
+  
+  integerMultiplyStream:
+      - type: event
+        agent: c_agent
+        method: multiplyInteger
+        trigger: multDone
+        args:
+          a: 50
+          b: 25
+
+      - type: trigger
+        triggers: [ {event: multDone, target: 'integerDivideStream', retVal: 0} ]
+        
+  integerDivideStream:
+      - type: event
+        agent: c_agent
+        method: divideInteger
+        trigger: divDone
+        args:
+          a: 50
+          b: 25
+
+      - type: trigger
+        triggers: [ {event: divDone, target: 'exit', retVal: 0} ]
