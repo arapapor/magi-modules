@@ -4,7 +4,7 @@ groups:
 agents:
   c_agent:
     group: agent_group
-    path: /users/rning/magi-modules/cagent/ 
+    path: /users/arapapor/magi-modules/cagent/ 
     execargs: { loglevel: debug }
 
 streamstarts: [ integerAddStream ]
@@ -20,7 +20,7 @@ eventstreams:
           b: 50
 
       - type: trigger
-        triggers: [ {event: addDone, target: 'integerSubtractStream', retVal: 75} ]
+        triggers: [ {event: addDone, target: 'integerSubtractStream', retVal: 50} ]
 
   integerSubtractStream:
       - type: event
