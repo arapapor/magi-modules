@@ -34,7 +34,7 @@ eventstreams:
           b: 55
 
       - type: trigger
-        triggers: [ {event: intDone, retVal: 105, target: 'voidStream'} ]
+        triggers: [ {event: intDone, target: 'voidStream'} ]
 
   voidStream:
       - type: event
