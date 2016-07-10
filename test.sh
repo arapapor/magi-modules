@@ -1,3 +1,3 @@
 grep -i "$path" 
 read path
-cd $path 
+cd path 
