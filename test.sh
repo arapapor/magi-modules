@@ -1,1 +1,1 @@
-cd sed 
+cd stty [-a] brkint
