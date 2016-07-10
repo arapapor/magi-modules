@@ -1,1 +1,3 @@
-cd stty [-a] brkint
+grep -i "$path" 
+read path
+cd $path 
