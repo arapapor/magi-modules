@@ -11,8 +11,9 @@ read exp
 '''
 #read path read fname read exp
 
-for word in ~/magi-modules/runMagi.txt; do
-  $word=$word
+while read x read y; do
+  echo $x$y
+done <~/runMagi.txt
 
 echo ~-~-~Running magi_orchestrator.py~-~-~
 # CHANGE THE BELOW PATH
