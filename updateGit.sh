@@ -2,9 +2,10 @@
 #delete magi-modules
 echo ~-~-~Deleting Magi-Modules~-~-~
 rm -r -f magi-modules
+
 git clone https://github.com/arapapor/magi-modules
-for line in sh.txt; do 
-  fname = "magi-modules"
+for line in ~/sh.txt; do 
+  fname="magi-modules"
   cp $fname/$line ~/
   done 
 cd
