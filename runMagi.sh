@@ -11,8 +11,8 @@ read exp
 '''
 #read path read fname read exp
 
-while read x read y; do
-  echo $x$y
+while read x read y read z; do
+  echo $x$y$z
 done <~/runMagi.txt
 
 echo ~-~-~Running magi_orchestrator.py~-~-~
