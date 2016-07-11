@@ -1,1 +1,4 @@
-
+test.sh
+updateGit.sh
+runMagi.sh
+changeMagi.sh
