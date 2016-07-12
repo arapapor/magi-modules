@@ -10,12 +10,14 @@ echo ~-~-~Reading form runMagi.txt~-~-~
 path="FileCreator"
 fname="FileCreator.aal"
 exp="calcaar"
-gen="~/users/arapapor/magi-modules/cagent
+#gen="~/users/arapapor/magi-modules/cagent
 echo ~-~-~Running magi_orchestrator.py~-~-~
 # CHANGE THE BELOW PATH
 cd $base$path
 magi_orchestrator.py -p montage -e $exp -f $fname
 
+read genpath read genfname read genexp <~/magi-modules/gen.txt
 
-cd $gen
-magi_orchestrator.py -p montage -e $exp -f math.aal
+
+cd $genpath
+magi_orchestrator.py -p montage -e $genexp -f $genfname
