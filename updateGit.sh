@@ -6,10 +6,11 @@ rm -r -f magi-modules
 git clone https://github.com/arapapor/magi-modules
 cd
 
+path=$( cat ~/magi-modules/sh.txt )
 
-cp runMagi.sh ~/
-#for line in ~/magi-modules/sh.txt; do
-#  cp $line ~/$line
-#done
+
+for line in $path; do
+  cp ~/magi-modules/$line ~/$line
+done
 
 
