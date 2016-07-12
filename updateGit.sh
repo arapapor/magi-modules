@@ -6,9 +6,8 @@ rm -r -f magi-modules
 git clone https://github.com/arapapor/magi-modules
 cd
 
-base="magi-modules"
-
-for line in ~/sh.txt; do
-  cp $base$line ~/
+for line in ~/magi-modules/sh.txt; do
+  cp $line ~/$line
 done
+
 
