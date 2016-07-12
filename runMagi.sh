@@ -13,7 +13,4 @@ cd $base$path
 magi_orchestrator.py -p montage -e $exp -f $fname
 
 
-echo ~-~-~Running magi_orchestrator.py~-~-~
-# CHANGE THE BELOW PATH
-cd $base$path
-magi_orchestrator.py -p montage -e $exp -f $fname
+
