@@ -6,6 +6,9 @@ rm -r -f magi-modules
 git clone https://github.com/arapapor/magi-modules
 cd
 
-cp magi-modules/updateGit.sh ~/
-cp magi-modules/runMagi.sh ~/
-cp magi-modules/runMagi.txt ~/
+base="magi-modules"
+
+for line in ~/sh.txt; do
+  cp $base$line ~/
+done
+
