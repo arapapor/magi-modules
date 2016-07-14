@@ -1,0 +1,31 @@
+groups:
+  client_group: [client-node]
+  server_group: [server-node]
+  
+agents:
+  simple_client:
+    group: client_group
+    path: /users/arapapor/magi-modules/simple_client
+    execargs: {}
+  
+  simple_server:
+    group: server_group
+    path: /users/arapapor/magi-modules/simple_server
+    execargs: {}
+    
+streamstarts: []
+
+  serverstream:
+  - type: event
+    agent: simple_server:
+    method: initCommServer
+    trigger: serverStarted
+    args: {}
+    
+  - type: trigger
+    triggers: [ {event: clientStarted, target: pingstream} ]
+  
+  
+  clientstream:
+  - type: event
+    agent: simple_client
