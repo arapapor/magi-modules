@@ -72,11 +72,11 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
             self.solarIrradiance *= (cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA))
         elif direction == 1:
             self.ELA = self.SELA
-            self.solarIrradiance *=  cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA)
+            self.solarIrradiance *= (cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA))
 
         elif direction == 2:
             self.AZA = self.SAZA
-            self.solarIrradiance *= (cos(self.SELA) * sin(self.ELA) + sin(self.SELA) * cos(self.ELA))
+            self.solarIrradiance *= (cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA))
 
         self.gen = self.solarIrradiance * (self.panelEff * 1.5) * self.panelArea
 
