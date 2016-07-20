@@ -23,7 +23,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         object.__init__(self)
         
         #constant for earth
-        self.obl = 23.44 * (math.pi / 180)
+        self.oli = 23.44 * (math.pi / 180)
 
         #data recieved from array config
         self.panelEff = 0.17
@@ -39,7 +39,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         #calculations done for each day of simulation
         self.B = (math.pi / 180.0) * (360.0 / 365.0) * (self.day - 10)
         self.EoT = 9.87 * sin(2.0 * self.B) - 7.53 * cos(self.B) - 1.5 * sin(self.B)
-        self.delta = (math.pi / 180.0) * asin(sin(self.obl) * sin(self.B))
+        self.delta = (math.pi / 180.0) * asin(sin(self.oli) * sin(self.B))
 
         #constant latitude of Chadwick
         self.LAT = 33.77984 * (math.pi / 180.0)
