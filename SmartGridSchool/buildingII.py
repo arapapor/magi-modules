@@ -24,6 +24,25 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
     #parses varibles from the config file, declared once
     def __init__(self):
         object.__init__(self)
+
+    # general physics
+        # base-lined at room temperature
+        self.minTemp = 20
+        self.maxTemp = 30
+
+        self.outsideTemperature = 23
+
+    # general building specifications
+        self.surfaceArea = 0 # in meters squared
+        self.volume = self.surfaceArea * 1 # should be multiplied by an average or a building specific varible
+
+        # hard coded to room temperature for now
+        self.insideTemperature = 23
+
+        # the rate that the building looses thermal energy in Kw / hr, in relation to its volume in meters^3
+        self.insulationCe = 0
+
+        '''generation calculation varibles'''
         #constant for earth
         self.OLI = 23.44 * (math.pi / 180)
 
@@ -59,6 +78,33 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.rise = int(1440 * ((math.pi / 2.0) + self.rise) / (2 * math.pi))
         self.sets = int(1440 * ((3.0 * math.pi / 2.0) + self.sets) / (2 * math.pi))
 
+        '''consumption initialization varibles'''
+        '''A / C'''
+
+        # the amount of energy in Kw, the air conditioner can remove from the air per hour
+        self.thermalCapacity = 60000
+
+        # A / C power use when on in Watts
+        self.acPowerUse = 5000
+
+        self.targetTemperature = 23
+
+        '''Lights'''
+        # arbitrary average values
+        self.numLights = 50
+        self.averageWattage = 60
+
+        '''Appliances'''
+        # insert a formula or space related varible
+        '''think about how to pass appliances'''
+        self.applianceKey = [[],[]]
+
+        '''Outlets'''
+        # number of outlets and range of likely usage times
+        self.numOutlets = 10
+        self.oTimeIndex = [] # probably uneccessary
+
+
     # electricity generation
     def generation(self, msg):
 
@@ -91,13 +137,70 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
             self.ELA = self.SELA
             self.AZA = self.SAZA
 
+        self.am = 1 / cos(self.declination)
+
+        if self.am > 1.0:
+            self.am = 1
+        elif self.am < -1.0:
+            self.am = -1
+
         # implement solar irradiance equation,
-        self.solarIrradiance = 1.353 * pow(pow(0.7, cos(1.0 / self.declination)), 0.678)
+        self.solarIrradiance = 1.353 * pow(pow(0.7, self.am), 0.678)
+
+
+        self.SELA = (90 + (180 / math.pi) * self.SELA) * (math.pi / 180)
         #print str(self.solarIrradiance)
-        self.solarIrradiance *= (cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA))
+
+        self.module_coeff = cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA)
+        if self.module_coeff < 0:
+            self.module_coeff = 0
+
+        print "EoT: " + str(self.EoT)
+        print "SELA: " + str(self.SELA)
+        print "SAXA: " + str(self.SAZA)
+        print "s_module coeff: " + str(self.module_coeff)
+        print "solar Irradiance 1: " + str(self.solarIrradiance)
+
+        # monitor the change of solarIrradiance
+        self.solarIrradiance *= (self.module_coeff)
+
+        #print str(cos(self.AZA - self.SAZA))
+
+        print "solar Irradiance 2: " + str(self.solarIrradiance)
+        print "Area: " + str(self.panelArea)
+        print "Panel Eff: " + str(self.panelEff)
+
         self.gen = self.solarIrradiance * self.panelArea * self.panelEff
+        print "Gen: " + str(self.gen)
 
         return self.gen
+
+# consumption
+    def consumption(self, msg):
+        self.consumption = 0
+
+        # temperature calculation
+        self.dMax = (5 / 9) * (6.5 * sin(.0172 - 2.25) + 72.8 - 32)
+        self.dMin = (5 / 9) * (6.5 * sin(.0172 - 2.25) + 56.5 - 32)
+        self.ran = dMax - dMin
+        self.ave = (dMax + dMin) / 2
+
+
+
+        tempEq1 = 2.0 * pow(sin(math.pi * (self.LT - 9) / 12), 3)
+        tempEq2 = 7.0 * pow(sin(math.pi * (self.LT - 9) / 19), 2)
+        tempEq3 = 4.5 * pow(sin(math.pi * (self.LT - 19) / 40), 19)
+
+        self.outsideTemperature = (ran / 2) * (tempEq1 + tempEq2 + tempEq3) + ave
+
+        # Air Conditioning
+        if self.insideTemperature > self.targetTemperature:
+            consumption += self.acPowerUse * 60
+            # do full temperature change calculation
+
+
+
+
 
 
 if __name__ == "__main__":
@@ -106,12 +209,11 @@ if __name__ == "__main__":
     for min in range(b.rise, b.sets):
         print str(min)
         b.LT = float(min) / 60.0
-        print str(b.generation(b) * 60.0)
+        #print str(b.generation(b) / 60)
         power += b.generation(b) / 60
         print
-    #print
+    print power
     #print str(power)
-
 
 
 
