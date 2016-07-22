@@ -34,7 +34,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
 
     # general building specifications
         self.surfaceArea = 0 # in meters squared
-        self.volume = surfaceArea * 1 # should be multiplied by an average or a building specific varible
+        self.volume = self.surfaceArea * 1 # should be multiplied by an average or a building specific varible
 
         # hard coded to room temperature for now
         self.insideTemperature = 23
