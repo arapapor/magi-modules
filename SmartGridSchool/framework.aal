@@ -1,0 +1,71 @@
+groups:
+  servers: [ server-1 ]
+  buildings: [  b-0, b-1, b-2, b-3, b-4, b-5, b-6, b-7, b-8, b-9, b-10, b-11, b-12, b-13, b-14, b-15, b-16, b-17, b-18, b-19, b-20, b-21 ]
+agents:
+  server_agent:
+    group: servers
+    path: /'PATH'
+    execargs: {}
+
+  building_agent:
+    group: buildings
+    path: /'PATH'
+    execargs: {}
+
+
+streamstarts: [ serverstream, clientstream, finish  ]
+
+eventstreams:
+
+  clientstream:
+    - type: event
+      agent: building_agent
+      method: startBuilding
+      trigger: buildingStarted
+      args: {}
+
+    - type: trigger
+      triggers: [ { event: serverStarted } ]
+
+    - type: trigger
+      triggers: [ { timeout: 60000 } ]
+
+    - type: trigger: [ {event: messageRecieved, count: 22}]
+
+    - type: event
+      agent: building_agent
+      method: sendMessage
+
+    - type: event
+      agent: building_agent
+      method: recieveMessage
+      trigger: messageRecieved
+
+    - type: trigger
+      triggers: [ {event: messageRecieved, retVal: False, count: 22, target: finish},
+                  {event: messageRecieved, retVal: True, count: 22, target} ]
+
+      - type: event
+        agent: building_agent
+        method: stopBuilding
+        trigger: clientStopped
+        args: {}
+
+  serverstream:
+    - type: event
+      agent: server_agent
+      method: startServer
+      trigger: serverStarted
+      args: {}
+
+    - type: trigger
+       triggers: [ {event: buildingStarted, count: 22}]
+
+
+
+  finish:
+      - type: trigger
+        triggers: [ {event: messageRecieved, retVal: False, count: 22, target: exit} ]
+
+      - type: trigger
+        triggers: [ {timeout: 0, target: 'exit' } ]
