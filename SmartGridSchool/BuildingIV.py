@@ -1,4 +1,3 @@
-# function period is erratic, 7.25.16
 '''
 from magi.util.agent import DispatchAgent, agentmethod
 from magi.util.processAgent import initializeProcessAgent
@@ -59,8 +58,6 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.surfaceArea = 2210 # in meters squared
         self.volume = self.surfaceArea * 2.3 # should be multiplied by an average or a building specific varible
 
-
-
         # the rate that the building looses thermal energy in Kw / hr, in relation to its volume in meters^3
         self.insulationCe = 0
 
@@ -83,17 +80,30 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
 
         #calculated daily
 
+
+        '''
         self.W = (360.0 / 365.24)
         self.A = self.W * (self.day + 10)
-        self.B = self.A * 1.914 * sin(self.W * (self.day - 2))
+
+        Bcoe = (self.W * (self.day - 2)) * (math.pi / 180)
+
+        self.B = self.A * 1.914 * sin(Bcoe)
         self.C = self.A - atan(tan(self.B) / cos(self.OLI)) / 180
         self.EoT = 720 * (self.C - round(self.C, 0))
 
 
-        #self.B = (360.0 / 365.0) * (self.day - 10)
-        #self.EoT = 9.87 * sin(2 * self.B) - 7.53 * cos(self.B) - 1.5 * sin(self.B)
+        self.W = (2 * math.pi / 365.24)
+        self.A = self.W * (self.day + 10)
+        self.B = self.A * 1.914 * sin(self.W * (self.day - 2))
+        self.C = self.A - atan(tan(self.B) / cos(self.OLI)) / math.pi
+        self.EoT = (4 * math.pi) * (self.C - round(self.C, 0))
+        '''
+        self.B = ((360.0 / 365.0) * (self.day - 81)) * (math.pi / 180)
+        self.EoT = 9.87 * sin(2 * self.B) - 7.53 * cos(self.B) - 1.5 * sin(self.B)
 
-        self.delta = (math.pi / 180.0) * -asin(sin(self.OLI) * cos(self.B))
+        #self.delta = (math.pi / 180.0) * -asin(sin(self.OLI) * cos(self.B))
+        self.delta = 23.44 * sin(self.B)
+        print "Delta: " + str(self.delta)
 
         #preliminary rise/set calculation
         self.rise = -tan(self.LAT) * tan(self.delta)
@@ -102,8 +112,11 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.rise = int(1440 * ((math.pi / 2.0) + self.rise) / (2 * math.pi))
         self.sets = int(1440 * ((3.0 * math.pi / 2.0) + self.sets) / (2 * math.pi))
 
-        print "Rise: " + str(self.rise)
-        print "Set: " + str(self.sets)
+        #self.rise = 1440 * self.rise
+        #self.set = 1440 * self.sets
+
+        #print "Rise: " + str(self.rise)
+        #print "Set: " + str(self.sets)
 
     #'''consumption initialization varibles'''
 
@@ -123,7 +136,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.outsideTemperature = 23
 
     #   '''A / C'''
-        # target temperature in degrees kelvin
+        # target temperature in degrees celsius
         self.targetTemperature = 21
 
         # the amount of energy in Kw, the air conditioner can remove from the air per hour
@@ -165,8 +178,14 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.sets = int(1440 * ((3.0 * math.pi / 2.0) + self.sets) / (2 * math.pi))
 
         #local time, hour angle
-        self.LST = self.LT + (4.0 * (-13.361) + self.EoT)
-        self.HRA = (math.pi / 180.0) * (15.0 * (self.LST - 12))
+        self.LST = self.LT + (4.0 * (-13.361) + self.EoT) / 60
+        #self.LST = self.LT + self.EoT
+        self.HRA = (15.0 * (self.LST - 12))
+
+        print "EoT: " + str(self.EoT)
+        print "LST: " + str(self.LST)
+        print "HRA: " + str(self.HRA)
+        print
 
 
         '''
@@ -183,7 +202,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.SAZA = acos((sin(self.delta) * cos(self.LAT) - cos(self.delta) * sin(self.LAT) * cos(self.HRA)) / cos(self.SELA))
 
         #declination
-        self.declination = abs(self.SELA)# because SELA is negative in the morning and positive in the afternoon with a maximum of 90 declination is its absolute value (90 + (180 / math.pi) * self.SELA) * (math.pi / 180)
+        self.declination = (math.pi / 2) - self.SELA
 
         #airmass calculation
         self.am = 1 / (cos(self.declination) + 0.50572 * pow(96.07995 - self.declination, -1.6364))
@@ -193,7 +212,9 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         #print "Airmass: " + str(self.am)
         '''
         # a more accurate diffuse irradience correction
-        self.diffuseIrradience = 0.20 * pow(0.7, pow(abs(self.am), 0.678))    # need to accound for increase of diffusion through clouds when clouds are added
+        #self.diffuseIrradience = 0.20 * pow(0.7, pow(abs(self.am), 0.678))    # need to accound for increase of diffusion through clouds when clouds are added
+        self.diffuseIrradience = 0.1
+
         #print "Diffuse Irradience: " + str(self.diffuseIrradience)
 
 
@@ -210,8 +231,10 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         if self.tracking:
             self.module_coeff = 1
         else:
-            self.module_coeff = cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA)
+            self.module_coeff = abs(cos(self.SELA) * sin(self.ELA) * cos(self.AZA - self.SAZA) + sin(self.SELA) * cos(self.ELA))
+
             #self.module_coeff *= -1
+
 
         #print "s_module coeff: " + str(self.module_coeff)
 
@@ -243,7 +266,7 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         '''
 
         self.gen = self.solarIrradience * self.panelArea * self.panelEff
-        #print "Gen: " + str(self.gen)
+        print "Gen: " + str(self.gen)
 
         return self.gen
 
@@ -281,15 +304,15 @@ class Building():  # difference between DispatchAgent and NonBlockingDispatchAge
         self.insideTemperature += self.thermalLeak
 
         # dew point calculation
-        c = 243.5
-        b = 17.67
+        #c = 243.5
+        #b = 17.67
 
         '''
         print "humidity: " + str(self.humidity)
         print "log(self.humidity, math.e): " + str(log(self.humidity, math.e))
         print "(b * self.insideTemperature) / (c + self.insideTemperature): " + str((b * self.insideTemperature) / (c + self.insideTemperature))
         '''
-        gamma = log(self.humidity, math.e) + (b * self.insideTemperature) / (c + self.insideTemperature)
+        #gamma = log(self.humidity, math.e) + (b * self.insideTemperature) / (c + self.insideTemperature)
 
         #print "Gamma: " + str(gamma)
         #self.dewPt = (c * gamma) / (b - gamma)
@@ -407,18 +430,21 @@ if __name__ == "__main__":
     draw = 0
 
 
-    for day in range(0, 364):
+    for day in range(0, 1):
         power = 0
         draw = 0
         print str(day)
         b = Building(day)
         b.day = day
         b.solarIrradienceTotal = 0
+        print str(b.EoT)
+
 
         for min in range(0, 1440):
 
             #print str(min)
             b.LT = float(min) / 60.0
+            print str(b.LT)
 
 
 
@@ -438,4 +464,5 @@ if __name__ == "__main__":
         print "Draw: " + str(draw)
         print
         #print str(power)
+
 
