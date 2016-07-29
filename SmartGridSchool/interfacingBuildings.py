@@ -275,6 +275,7 @@ class Building(DispatchAgent): # difference between DispatchAgent and NonBlockin
         return self.cons
 
     def iterate(self, msg):
+        
         allGeneration = []
         allConsumption = []
         for day in range(0, 365):
